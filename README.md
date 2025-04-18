@@ -12,7 +12,7 @@ Move entries from one collection to another in your Control Panel.
 - Confirmation question before moving
 - German and English localized
 
-:warning: No multi-site support at the moment. 
+:warning: Multi-site support only for Statamic Eloquent entries at the moment. 
 
 **Usage:**
 

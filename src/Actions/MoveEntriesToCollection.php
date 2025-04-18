@@ -32,13 +32,19 @@ class MoveEntriesToCollection extends Action
 
         /** @var \Illuminate\Support\Collection $items */
         foreach($items as $item) {
+            $id = $item->origin()?->id() ?? $item->id();
+
+            if ($item->origin()) {
+                $item->origin()->collection($collection)->blueprint($blueprintHandle)->save();
+            }
+
             $item->collection($collection)->blueprint($blueprintHandle)->save();
 
             if($isMultisite){
                 Facades\Entry::query()
-                    ->where('origin', $item->id())
+                    ->where('origin', $id)
                     ->get()
-                    ->each(fn ($entry) => $this->updateEntry($entry, $collection, $blueprintHandle));
+                    ->each(fn ($entry) => $entry->collection($collection)->blueprint($collection->entryBlueprint()->handle)->save());
             }
         }
     }

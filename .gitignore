@@ -1,0 +1,16 @@
+mix-manifest.json
+.DS_Store
+.php-cs-fixer.cache
+/.fleet
+/.idea
+/.vscode
+/.phpunit.cache
+/node_modules
+/vendor/
+composer.lock
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log

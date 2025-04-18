@@ -63,13 +63,18 @@ class MoveEntriesToCollection extends Action
 
     protected function fieldItems(): array
     {
+        $collectionFilter = config('statamic.move-entries.collections', '*');
+
+        $collections = Facades\Collection::all()
+            ->filter(fn ($collection) => $collectionFilter === '*' || in_array($collection->handle(), $collectionFilter))
+            ->mapWithKeys(fn ($collection) => [$collection->handle() => $collection->title()])
+            ->sort();
+
         return [
             'collection' => [
                 'type' => 'select',
                 'validate' => 'required',
-                'options' => Facades\Collection::all()->flatMap(function (\Statamic\Entries\Collection $item) {
-                    return [$item->handle() => $item->title()];
-                })->sort(),
+                'options' => $collections,
             ],
         ];
     }
